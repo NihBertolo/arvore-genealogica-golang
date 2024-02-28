@@ -1,0 +1,116 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Aplicação desenvolvida em GoLang para busca de arvores utilizando Neo4j.",
+        "title": "Arvore Genealógica NEO4J",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/person": {
+            "post": {
+                "description": "Create a new Person",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "person"
+                ],
+                "summary": "Create Person",
+                "parameters": [
+                    {
+                        "description": "Person Data",
+                        "name": "person",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Person"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Person"
+                        }
+                    }
+                }
+            }
+        },
+        "/person/{id}": {
+            "get": {
+                "description": "Get user details by providing user ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "person"
+                ],
+                "summary": "Get person By ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Person ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Person"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Person": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Person"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parents": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Person"
+                    }
+                }
+            }
+        }
+    }
+}

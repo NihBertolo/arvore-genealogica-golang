@@ -1,0 +1,77 @@
+basePath: /api/v1
+definitions:
+  models.Person:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/models.Person'
+        type: array
+      name:
+        type: string
+      parents:
+        items:
+          $ref: '#/definitions/models.Person'
+        type: array
+    required:
+    - name
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Aplicação desenvolvida em GoLang para busca de arvores utilizando Neo4j.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Arvore Genealógica NEO4J
+  version: "1.0"
+paths:
+  /person:
+    post:
+      consumes:
+      - application/json
+      description: Create a new Person
+      parameters:
+      - description: Person Data
+        in: body
+        name: person
+        required: true
+        schema:
+          $ref: '#/definitions/models.Person'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Person'
+      summary: Create Person
+      tags:
+      - person
+  /person/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get user details by providing user ID
+      parameters:
+      - description: Person ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Person'
+      summary: Get person By ID
+      tags:
+      - person
+schemes:
+- http
+swagger: "2.0"
